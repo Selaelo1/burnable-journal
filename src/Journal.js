@@ -1,8 +1,8 @@
 // src/Journal.js
 import React, { useState, useEffect } from 'react';
-import './Journal.css'; // Import the CSS for animations
+import './Journal.css'; 
 import { Button } from 'react-bootstrap';
-import fireGif from './Fire GIF - Fire - Discover & Share GIFs.gif'; // Adjust the path as needed
+import fireGif from './Fire GIF - Fire - Discover & Share GIFs.gif'; 
 
 const greetings = {
   morning: "Good morning, mama! 🌞 Ready to embrace the day?",
@@ -137,7 +137,7 @@ const Journal = () => {
   };
 
   return (
-    <div className="journal" style={{ padding: '20px', borderRadius: '15px', transition: 'background-color 0.5s ease', position: 'relative' }}>
+    <div className="journal" style={{ position: 'relative' }}>
       {fireAnimation && <img src={fireGif} alt="Fire Animation" className="fire-animation" />}
       {burnt ? (
         <div className="fire-message">
