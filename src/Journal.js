@@ -5,9 +5,9 @@ import { Button } from 'react-bootstrap';
 import fireGif from './Fire GIF - Fire - Discover & Share GIFs.gif'; // Adjust the path as needed
 
 const greetings = {
-  morning: "Good morning, beautiful! 🌞 Ready to embrace the day?",
-  afternoon: "Good afternoon, lovely! 🌼 How's your day going?",
-  evening: "Good evening, sweetheart! 🌙 Hope you’re winding down nicely.",
+  morning: "Good morning, mama! 🌞 Ready to embrace the day?",
+  afternoon: "Good afternoon, my love! 🌼 How's your day going?",
+  evening: "Good evening, baby! 🌙 Hope you’re winding down nicely.",
 };
 
 const feelingsMessages = {
