@@ -1,8 +1,8 @@
 // src/Journal.js
 import React, { useState, useEffect } from 'react';
-import './Journal.css'; 
+import './Journal.css';
 import { Button } from 'react-bootstrap';
-import fireGif from './Fire GIF - Fire - Discover & Share GIFs.gif'; 
+import fireGif from './Fire GIF - Fire - Discover & Share GIFs.gif'; // Adjust the path as needed
 
 const greetings = {
   morning: "Good morning, mama! 🌞 Ready to embrace the day?",
@@ -19,11 +19,11 @@ const feelingsMessages = {
 };
 
 const feelingsColors = {
-  happy: '#ffe0a1',    // Soft yellow
-  sad: '#a3c1f3',      // Soft blue
-  stressed: '#ffccbc', // Soft orange
-  excited: '#c8e6c9',  // Soft green
-  frustrated: '#ef9a9a' // Soft red
+  happy: '#ffe0a1',    
+  sad: '#a3c1f3',      
+  stressed: '#ffccbc', 
+  excited: '#c8e6c9',  
+  frustrated: '#ef9a9a' 
 };
 
 const Journal = () => {
@@ -44,7 +44,6 @@ const Journal = () => {
     else if (hour < 18) setTimeOfDay('afternoon');
     else setTimeOfDay('evening');
 
-    // Load saved entries from local storage
     const saved = JSON.parse(localStorage.getItem('journalEntries')) || [];
     setSavedEntries(saved);
   }, []);
@@ -53,7 +52,6 @@ const Journal = () => {
     if (feeling) {
       document.body.style.backgroundColor = feelingsColors[feeling];
     }
-    // Save state to local storage whenever it changes
     localStorage.setItem('feeling', JSON.stringify(feeling));
     localStorage.setItem('entry', JSON.stringify(entry));
     localStorage.setItem('image', JSON.stringify(image));
@@ -68,18 +66,7 @@ const Journal = () => {
 
   const handleEntryChange = (event) => {
     setEntry(event.target.value);
-    setErrorMessage(''); // Clear error message on change
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    setErrorMessage('');
   };
 
   const handleSaveEntry = () => {
@@ -88,8 +75,8 @@ const Journal = () => {
       return;
     }
 
-    const date = new Date().toLocaleString(); // Capture the current date and time
-    const newEntry = { feeling: feeling || null, text: entry, image, date }; // Set feeling to null if not provided
+    const date = new Date().toLocaleString();
+    const newEntry = { feeling: feeling || null, text: entry, image, date };
     const updatedEntries = [...savedEntries, newEntry];
     setSavedEntries(updatedEntries);
     localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
@@ -105,9 +92,9 @@ const Journal = () => {
       return;
     }
 
-    setFireAnimation(true); // Trigger fire animation
+    setFireAnimation(true);
     setBurnt(true);
-    localStorage.setItem('burnt', JSON.stringify(true)); // Save burnt state
+    localStorage.setItem('burnt', JSON.stringify(true));
     setEntry('');
     setFeeling('');
     setImage('');
@@ -119,38 +106,39 @@ const Journal = () => {
     localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
   };
 
+  const handleDeleteImage = () => {
+    setImage('');
+  };
+
   const handleGoHome = () => {
     setBurnt(false);
     setShowEntries(false);
-    setFireAnimation(false); // Reset fire animation
-    // Reset all selected options
+    setFireAnimation(false);
     setFeeling('');
     setEntry('');
     setImage('');
     setMessage('');
-    setErrorMessage(''); // Clear error message
-
-    // Remove feeling and image from local storage
+    setErrorMessage('');
     localStorage.removeItem('feeling');
     localStorage.removeItem('image');
-    localStorage.removeItem('burnt'); // Clear burnt state
+    localStorage.removeItem('burnt');
   };
 
   return (
-    <div className="journal" style={{ position: 'relative' }}>
+    <div className="journal" style={{ padding: '20px', borderRadius: '15px', transition: 'background-color 0.5s ease', position: 'relative' }}>
       {fireAnimation && <img src={fireGif} alt="Fire Animation" className="fire-animation" />}
       {burnt ? (
         <div className="fire-message">
           <h2>Your entry has been burned. 🕊️</h2>
           <p>Now that you've burned this entry, I hope you feel lighter. You are loved dearly! ❤️</p>
-          <p>If you want a hug, just let me know. I won’t ask what happened—just know that you’ll get it! 🤗</p>
+          <p>If you want a hug, let me know. I will always be there for you. 🤗</p>
           <Button variant="primary" onClick={handleGoHome} style={{ marginTop: '10px' }}>
             Back to Home 🏠
           </Button>
         </div>
       ) : (
         <>
-          {!burnt && <h1>{greetings[timeOfDay]}</h1>}
+          <h1>{greetings[timeOfDay]}</h1>
           <div>
             <div className="form-group">
               <label>How are you feeling?</label>
@@ -175,11 +163,14 @@ const Journal = () => {
                 placeholder="Express your thoughts here..."
               />
             </div>
-            <div className="form-group">
-              <label>Add an image (optional):</label>
-              <input type="file" className="form-control" accept="image/*" onChange={handleImageChange} />
-              {image && <img src={image} alt="Journal visual" style={{ width: '100%', marginTop: '10px' }} />}
-            </div>
+            {image && (
+              <div className="form-group">
+                <img src={image} alt="Journal visual" style={{ width: '100%', marginTop: '10px' }} />
+                <Button variant="danger" onClick={handleDeleteImage} style={{ marginTop: '10px' }}>
+                  Delete Image ❌
+                </Button>
+              </div>
+            )}
             <div style={{ marginTop: '10px' }}>
               <button className="btn btn-primary" onClick={handleSaveEntry} style={{ marginRight: '10px' }}>
                 Save Entry 💾
