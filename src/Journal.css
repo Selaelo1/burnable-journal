@@ -1,15 +1,16 @@
 /* src/Journal.css */
 .journal {
-  max-width: 600px;
-  /* Set maximum width */
-  margin: auto;
-  /* Center the form */
-  padding: 20px;
-  /* Padding around the container */
-  border-radius: 15px;
-  background-color: white;
+
+  max-width: 800px;
+    /* Set maximum width */
+    margin: auto;
+    /* Center the form */
+    padding: 20px;
+    /* Padding around the container */
+    border-radius: 15px;
+  }
   /* Ensure the background is white */
-}
+
 
 .form-group {
   margin-bottom: 15px;
@@ -28,19 +29,29 @@ textarea {
 
 /* Fire animation styles */
 .fire-animation {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: 999;
   /* Send the fire animation behind other elements */
 }
 
 .fire-message {
-  position: relative;
-  /* Keep it in normal flow */
-  z-index: 1;
-  /* Bring the message in front of the fire animation */
+  position: absolute;
+    top: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    /* Adjust as necessary for visibility */
+    text-align: center;
+    z-index: 1000;
+    /* Above the fire GIF */
+    background: rgba(0, 0, 0, 0.5);
+    /* Optional: add a semi-transparent background for readability */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
 }
